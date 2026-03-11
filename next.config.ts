@@ -43,6 +43,15 @@ const nextConfig: NextConfig = {
           },
         ],
       },
+      {
+        source: '/:path*{/}?',
+        headers: [
+          {
+            key: 'X-Accel-Buffering',
+            value: 'no',
+          },
+        ],
+      },
     ]
   },
   async redirects() {
@@ -63,6 +72,10 @@ const nextConfig: NextConfig = {
   },
   sassOptions: {
     implementation: 'sass-embedded',
+  },
+  generateBuildId: async () => {
+    // This could be anything, using the latest git hash
+    return process.env.GIT_HASH
   },
 };
 
