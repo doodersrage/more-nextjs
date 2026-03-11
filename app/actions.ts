@@ -1,25 +1,8 @@
 'use server'
  
-import { z } from 'zod'
+import { revalidateTag } from 'next/cache'
  
-const schema = z.object({
-  email: z.string({
-    invalid_type_error: 'Invalid Email',
-  }),
-})
- 
-export async function createUser(initialState: any, formData: FormData) {
-
-  const validatedFields = schema.safeParse({
-    email: formData.get('email'),
-  })
- 
-  // Return early if the form data is invalid
-  if (!validatedFields.success) {
-    return {
-      errors: validatedFields.error.flatten().fieldErrors,
-    }
-  }
- 
-  // Mutate data
+export async function createPost() {
+  // Invalidate all data tagged with 'posts'
+  revalidateTag('posts')
 }
