@@ -1,12 +1,25 @@
 'use server'
  
-import { auth } from './lib'
+import { z } from 'zod'
  
-export function addItem() {
-  const { user } = auth()
-  if (!user) {
-    throw new Error('You must be signed in to perform this action')
+const schema = z.object({
+  email: z.string({
+    invalid_type_error: 'Invalid Email',
+  }),
+})
+ 
+export async function createUser(initialState: any, formData: FormData) {
+
+  const validatedFields = schema.safeParse({
+    email: formData.get('email'),
+  })
+ 
+  // Return early if the form data is invalid
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+    }
   }
  
-  // ...
+  // Mutate data
 }

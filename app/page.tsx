@@ -1,25 +1,33 @@
-// page that fetches data
-import { draftMode } from 'next/headers'
+'use client'
  
-async function getData() {
-  const { isEnabled } = await draftMode()
+import { useOptimistic } from 'react'
+import { send } from './actions'
  
-  const url = isEnabled
-    ? 'https://draft.example.com'
-    : 'https://production.example.com'
- 
-  const res = await fetch(url)
- 
-  return res.json()
+type Message = {
+  message: string
 }
  
-export default async function Page() {
-  const { title, desc } = await getData()
+export function Thread({ messages }: { messages: Message[] }) {
+  const [optimisticMessages, addOptimisticMessage] = useOptimistic<
+    Message[],
+    string
+  >(messages, (state, newMessage) => [...state, { message: newMessage }])
+ 
+  const formAction = async (formData: FormData) => {
+    const message = formData.get('message') as string
+    addOptimisticMessage(message)
+    await send(message)
+  }
  
   return (
-    <main>
-      <h1>{title}</h1>
-      <p>{desc}</p>
-    </main>
+    <div>
+      {optimisticMessages.map((m, i) => (
+        <div key={i}>{m.message}</div>
+      ))}
+      <form action={formAction}>
+        <input type="text" name="message" />
+        <button type="submit">Send</button>
+      </form>
+    </div>
   )
 }
