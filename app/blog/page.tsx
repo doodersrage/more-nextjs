@@ -1,15 +1,7 @@
-import { unstable_cache } from 'next/cache'
-import { db, posts } from '@/lib/db'
+import BlogPost, { metadata } from '@/content/blog-post.mdx'
  
-const getCachedPosts = unstable_cache(
-  async () => {
-    return await db.select().from(posts)
-  },
-  ['posts'],
-  { revalidate: 3600, tags: ['posts'] }
-)
- 
-export default async function Page() {
-  const posts = getCachedPosts()
-  // ...
+export default function Page() {
+  console.log('metadata: ', metadata)
+  //=> { author: 'John Doe' }
+  return <BlogPost />
 }
