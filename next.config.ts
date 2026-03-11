@@ -77,6 +77,7 @@ const nextConfig: NextConfig = {
     // This could be anything, using the latest git hash
     return process.env.GIT_HASH
   },
+  output: 'export',
 };
 
 export default nextConfig;

@@ -10,3 +10,5 @@ export async function updateUserAction(formData) {}
 // will automatically remove this code during `next build`
 // and will not create a public endpoint.
 export async function deleteUserAction(formData) {}
+
+export async function create() {}
