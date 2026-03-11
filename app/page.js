@@ -1,10 +1,5 @@
-import Link from 'next/link'
+import { YouTubeEmbed } from '@next/third-parties/google'
  
 export default function Page() {
-  return (
-    <div>
-      <h1>Home</h1>
-      <Link href="/about">About</Link>
-    </div>
-  )
+  return <YouTubeEmbed videoid="ogfYd705cRs" height={400} params="controls=0" />
 }
