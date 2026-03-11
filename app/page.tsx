@@ -1,33 +1,13 @@
 'use client'
  
-import { useOptimistic } from 'react'
-import { send } from './actions'
+import { useRouter } from 'next/navigation'
  
-type Message = {
-  message: string
-}
- 
-export function Thread({ messages }: { messages: Message[] }) {
-  const [optimisticMessages, addOptimisticMessage] = useOptimistic<
-    Message[],
-    string
-  >(messages, (state, newMessage) => [...state, { message: newMessage }])
- 
-  const formAction = async (formData: FormData) => {
-    const message = formData.get('message') as string
-    addOptimisticMessage(message)
-    await send(message)
-  }
+export default function Page() {
+  const router = useRouter()
  
   return (
-    <div>
-      {optimisticMessages.map((m, i) => (
-        <div key={i}>{m.message}</div>
-      ))}
-      <form action={formAction}>
-        <input type="text" name="message" />
-        <button type="submit">Send</button>
-      </form>
-    </div>
+    <button type="button" onClick={() => router.push('/dashboard')}>
+      Dashboard
+    </button>
   )
 }
