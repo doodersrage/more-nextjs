@@ -78,6 +78,10 @@ const nextConfig: NextConfig = {
     return process.env.GIT_HASH
   },
   output: 'export',
+  images: {
+    loader: 'custom',
+    loaderFile: './my-loader.ts',
+  },
 };
 
 export default nextConfig;

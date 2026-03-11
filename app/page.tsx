@@ -1,14 +1,5 @@
-import Script from 'next/script'
+import Image from 'next/image'
  
 export default function Page() {
-  return (
-    <>
-      <Script
-        src="https://example.com/script.js"
-        id="example-script"
-        nonce="XUENAJFW"
-        data-test="script"
-      />
-    </>
-  )
+  return <Image alt="turtles" src="/turtles.jpg" width={300} height={300} />
 }
