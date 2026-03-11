@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
     serverActions: {
       allowedOrigins: ['my-proxy.com', '*.my-proxy.com'],
     },
+    nextScriptWorkers: true,
   },
   async headers() {
     return [
@@ -59,6 +60,9 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
     ]
+  },
+  sassOptions: {
+    implementation: 'sass-embedded',
   },
 };
 

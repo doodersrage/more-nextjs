@@ -1,13 +1,14 @@
-'use client'
- 
-import { useRouter } from 'next/navigation'
+import Script from 'next/script'
  
 export default function Page() {
-  const router = useRouter()
- 
   return (
-    <button type="button" onClick={() => router.push('/dashboard')}>
-      Dashboard
-    </button>
+    <>
+      <Script
+        src="https://example.com/script.js"
+        id="example-script"
+        nonce="XUENAJFW"
+        data-test="script"
+      />
+    </>
   )
 }
